@@ -23,6 +23,7 @@ module.exports = {
   },
   plugins: ['react', '@emotion'],
   rules: {
+    'spaced-comment': 'off',
     'react/prop-types': 'off',
   },
 };
