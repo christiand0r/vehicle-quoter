@@ -24,8 +24,8 @@ body {
 
 ul {
   list-style: none;
-  padding: none;
-  margin: none;
+  padding: 0;
+  margin: 0;
 }
 
 span.result {
@@ -34,20 +34,23 @@ span.result {
 }
 
 .result-enter {
-  transition: 0.5s;
+  transform: translateY(-60%);
 }
-.result-enter.result-enter-active {
+
+.result-enter-active {
   transform: translateY(0%);
+  transition: transform 0.5s ease;
 }
 .result-exit {
-  transform: translateY(0);
-  transition: 0.5s;
-  position: absolute;
+  opacity: 1;
+  transform: translateY(0%);
   left: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+  position: absolute;
 }
 .result-exit-active {
   opacity: 0;
-  transform: translateY(-10%);
+  transform: translateY(70%);
+  transition: transform 0.5s, opacity 0.5s;
 }
