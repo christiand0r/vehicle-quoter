@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 import { firstLetterCapitalize } from '../helpers/firstLetterCapitalize';
 
 const ResumeContainer = styled.div`
@@ -27,6 +28,10 @@ const Resume = ({ data }) => {
       </ul>
     </ResumeContainer>
   );
+};
+
+Resume.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default Resume;
