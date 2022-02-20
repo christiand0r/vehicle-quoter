@@ -4,7 +4,9 @@ import Form from './components/Form';
 import Header from './components/Header';
 import Resume from './components/Resume';
 import Result from './components/Result';
+import Spinner from './components/Spinner/Spinner';
 
+//Styled Components
 const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
@@ -15,6 +17,7 @@ const FormContainer = styled.div`
   padding: 3rem;
 `;
 
+//Initial Object State
 const initialResume = {
   result: 0,
   data: {
@@ -26,8 +29,9 @@ const initialResume = {
 
 function App() {
   const [resume, setResume] = useState(initialResume);
+  const [loading, setLoading] = useState(false);
 
-  //Extraemos data
+  //Extract data
   const { result, data } = resume;
 
   return (
@@ -35,9 +39,11 @@ function App() {
       <Header title='Cotizador de Seguros' />
 
       <FormContainer>
-        <Form setResume={setResume}></Form>
-        <Resume data={data} />
-        <Result result={result} />
+        <Form setResume={setResume} setLoading={setLoading}></Form>
+
+        {loading ? <Spinner></Spinner> : <Resume data={data} />}
+
+        {!loading ? <Result result={result} /> : null}
       </FormContainer>
     </Container>
   );
