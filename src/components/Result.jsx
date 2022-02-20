@@ -1,4 +1,6 @@
+import { useRef } from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const Message = styled.p`
@@ -26,20 +28,27 @@ const TextQuote = styled.p`
 `;
 
 const Result = ({ result }) => {
+  const refTextQuote = useRef();
+
   return result === 0 ? (
     <Message>Elige marca, año y tipo de seguro</Message>
   ) : (
     <ResultQuote>
-      <TransitionGroup component='p' className='result'>
+      <TransitionGroup className='result'>
         <CSSTransition
           key={result}
+          nodeRef={refTextQuote}
           classNames='result'
           timeout={{ enter: 500, exit: 500 }}>
-          <TextQuote>Total a pagar: $${result}</TextQuote>
+          <TextQuote ref={refTextQuote}>Total a pagar: $${result}</TextQuote>
         </CSSTransition>
       </TransitionGroup>
     </ResultQuote>
   );
+};
+
+Result.propTypes = {
+  result: PropTypes.number.isRequired,
 };
 
 export default Result;
