@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 import { getYearDifference } from '../helpers/getYearDifference';
 import { increaseAccordingBrand } from '../helpers/increaseAccordingBrand';
 import { increaseAccordingPlan } from '../helpers/increaseAccordingPlan';
@@ -54,13 +55,14 @@ const Error = styled.div`
   width: 100%;
 `;
 
+//Initial Object State
 const initialForm = {
   brand: '',
   plan: '',
   year: '',
 };
 
-const Form = ({ setResume }) => {
+const Form = ({ setResume, setLoading }) => {
   const [quote, setQuote] = useState(initialForm);
   const [error, setError] = useState(false);
 
@@ -104,10 +106,16 @@ const Form = ({ setResume }) => {
     //Incremento acorde al plan
     result = parseFloat(increaseAccordingPlan(plan) * result).toFixed(2);
 
-    setResume({
-      result,
-      data: quote,
-    });
+    //Simulamos asincronismo
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setResume({
+        result: Number(result),
+        data: quote,
+      });
+    }, 3000);
   };
 
   return (
@@ -186,6 +194,11 @@ const Form = ({ setResume }) => {
       <Button type='submit'>Cotizar</Button>
     </form>
   );
+};
+
+Form.propTypes = {
+  setResume: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default Form;
